@@ -7,9 +7,10 @@ pipeline {
         stage('Instalar dependencias'){
             steps {
                 script {
-                    sh '
+                    sh '''
                     cd frontend
-                    npm install'
+                    npm install
+                    '''
                 }
             }
         }
