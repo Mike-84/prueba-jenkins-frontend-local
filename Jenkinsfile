@@ -1,5 +1,5 @@
 
-version = './frontend/version'
+version = '/frontend/version'
 
 pipeline {
     agent {
