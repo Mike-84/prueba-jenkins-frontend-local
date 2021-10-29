@@ -1,3 +1,6 @@
+
+version = './frontend/version'
+
 pipeline {
     agent {
         label 'master'
