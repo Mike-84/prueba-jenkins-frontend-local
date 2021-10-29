@@ -18,7 +18,10 @@ pipeline {
         stage('Ejecutar linters'){
             steps {
                 script {
-                    sh 'npm run lint'
+                    sh '''
+                    cd
+                    npm run lint
+                    '''
                 }
             }
         }
