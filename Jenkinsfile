@@ -59,7 +59,6 @@ pipeline {
                     cd frontend
                     npm run build
                     '''
-                    sh "docker build --no-cache -t frontend-test:${version}"
                 }
             }
         }
