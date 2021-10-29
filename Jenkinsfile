@@ -31,7 +31,10 @@ pipeline {
               stage('test unitario') {
                   steps {
                       script {
-                          sh 'npm run unit'
+                          sh '''
+                          cd frontend
+                          npm run unit
+                          '''
                       }
 
                   }
@@ -39,7 +42,10 @@ pipeline {
               stage('test de integración') {
                   steps {
                       script {
-                          sh 'npm run e2e'
+                          sh '''
+                          cd frontend
+                          npm run e2e
+                          '''
                       }
                   }
               }
@@ -49,9 +55,11 @@ pipeline {
         stage('Publicar artefacto a nexus') {
             steps{
               script{
-                sh "docker login -u admin -p admin localhost:8082"
-                sh "docker tag frontend-test:${5}(cat version) localhost:8082/frontend-test:${5}(cat version)"
-                sh "docker push localhost:8082/frontend-test:${5}(cat version)"
+                sh '''
+                docker login -u admin -p admin localhost:8082
+                docker tag frontend-test:${5}(cat version) localhost:8082/frontend-test:${5}(cat version)
+                docker push localhost:8082/frontend-test:${5}(cat version)
+                '''
               }
             }
         }
