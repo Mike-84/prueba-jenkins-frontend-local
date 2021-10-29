@@ -57,8 +57,8 @@ pipeline {
               script{
                 sh '''
                 docker login -u admin -p admin localhost:8082
-                docker tag frontend:${version} localhost:8082/frontend:${version}
-                docker push localhost:8082/frontend:${version}
+                docker image tag frontend-test:${version} localhost:8082/frontend-test:${version}
+                docker image push localhost:8082/frontend-test:${version}
                 '''
               }
             }
