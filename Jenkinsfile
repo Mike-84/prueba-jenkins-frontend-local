@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    cd
+                    cd frontend
                     npm run lint
                     '''
                 }
