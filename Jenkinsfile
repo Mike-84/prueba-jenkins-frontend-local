@@ -52,14 +52,14 @@ pipeline {
             }
         }
 
-        stage ('contenido estático y nginx') {
+        stage ('contenido estático y nginx (?¿)') {
             steps {
                 script {
                     sh '''
                     cd frontend
                     npm run build
-                    docker build --no-cache -t frontend-test:${version}
                     '''
+                    sh "docker build --no-cache -t frontend-test:${version}"
                 }
             }
         }
@@ -67,11 +67,9 @@ pipeline {
         stage('Publicar artefacto a nexus') {
             steps{
               script{
-                sh '''
-                docker login -u admin -p admin localhost:8082
-                docker tag frontend-test:${version} localhost:8082/frontend-test:${version}
-                docker push localhost:8082/frontend-test:${version}
-                '''
+                sh "docker login -u admin -p admin localhost:8082"
+                sh "docker tag frontend-test:${version} localhost:8082/frontend-test:${version}"
+                sh "docker push localhost:8082/frontend-test:${version}"
               }
             }
         }
