@@ -52,13 +52,25 @@ pipeline {
             }
         }
 
+        stage ('contenido estático y nginx') {
+            steps {
+                script {
+                    sh '''
+                    cd frontend
+                    npm run build
+                    docker build --no-cache -t frontend-test:${version}
+                    '''
+                }
+            }
+        }
+
         stage('Publicar artefacto a nexus') {
             steps{
               script{
                 sh '''
                 docker login -u admin -p admin localhost:8082
-                docker image tag frontend-test:${version} localhost:8082/frontend-test:${version}
-                docker image push localhost:8082/frontend-test:${version}
+                docker tag frontend-test:${version} localhost:8082/frontend-test:${version}
+                docker push localhost:8082/frontend-test:${version}
                 '''
               }
             }
