@@ -66,6 +66,7 @@ pipeline {
         stage('Publicar artefacto a nexus') {
             steps{
               script{
+                sh "cd frontend"
                 sh "docker login -u admin -p admin localhost:8082"
                 sh "docker tag frontend-test:${version} localhost:8082/frontend-test:${version}"
                 sh "docker push localhost:8082/frontend-test:${version}"
