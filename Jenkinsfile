@@ -1,5 +1,5 @@
 
-def version = 'frontend/version'
+def version = '1.0.0'
 
 pipeline {
     agent {
