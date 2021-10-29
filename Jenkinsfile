@@ -4,48 +4,70 @@ pipeline {
     }
 
     stages {
-        stage('prueba') {
-            steps {
-                echo 'Hola mundo'
-            }
-        }
-
-
-        stage('netstat'){
+        stage('Instalar dependencias'){
             steps {
                 script {
-                    sh 'netstat -atup'
+                    sh 'npm install'
                 }
             }
         }
 
-        stage (frontend){
+        stage('Ejecutar linters'){
+            steps {
+                script {
+                    sh 'npm run lint'
+                }
+            }
+        }
+
+        stage ('tests'){
             parallel {
-              stage('npm-build') {
+              stage('test unitario') {
                   steps {
-                      echo "la versión de npm es:"
                       script {
-                          sh 'npm --version'
+                          sh 'npm run unit'
                       }
 
                   }
               }
-
-
-              stage('prueba-docker') {
+              stage('test de integración') {
                   steps {
-                      echo "la versión de docker es:"
                       script {
-                          sh 'docker --version'
+                          sh 'npm run e2e'
                       }
-
                   }
               }
             }
         }
 
+        stage('Passwords') {
+          parallel {
+            stage(Pass-nexus) {
+              steps {
+                  script{
+                      sh 'docker exec prueba-jenkins-frontend-local_nexus_1 cat /nexus-data/admin.password'
+                  }
+              }
+            }
+            stage(Pass-jenkins) {
+              steps {
+                  script{
+                      sh 'docker exec -u root prueba-jenkins-frontend-local_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword'
+                  }
+              }
+            }
+          }
+        }
 
-
+        stage('Publicar artefacto a nexus') {
+            steps{
+              script{
+                sh "docker login -u admin -p admin localhost:8082"
+                sh "docker tag frontend-test:$(cat version) localhost:8082/frontend-test:$(cat version)"
+                sh "docker push localhost:8082/frontend-test:$(cat version)"
+              }
+            }
+        }
 
     }
 

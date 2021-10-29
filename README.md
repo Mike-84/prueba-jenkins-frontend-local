@@ -36,3 +36,11 @@ Para guardar imagen de frontend/backend a nexus hay que configurar nexus previam
  docker push localhost:8082/frontend-test:$(cat version)
 
  - Para hacer el push hay que autenticarse que a pelo sería (en mi caso): docker login -u admin -p admin localhost:8082 y ya podriamos hacer el push.
+
+
+
+ Una vez se haga en docker-compose configurar jenkins y nexus para que al realizar el build en pipeline funcione todo.
+
+ Para saber la pass inicial de jenkins docker exec -u root prueba-jenkins-frontend-local_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword
+
+ vincular jenkins con gitlab creando un multibranch
