@@ -15,14 +15,6 @@ pipeline {
             }
         }
 
-        stage('Ejecutar linters'){
-            steps {
-                script {
-                    sh 'npm run lint'
-                }
-            }
-        }
-
         stage ('tests'){
             parallel {
               stage('test unitario') {
