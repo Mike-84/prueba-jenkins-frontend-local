@@ -70,6 +70,7 @@ pipeline {
             steps{
               script{
                 sh "cd frontend"
+                sh "docker build --no-cache -t frontend-test:1.0.0 ."
                 sh "docker login -u admin -p admin localhost:8082"
                 sh "docker image tag frontend-test:1.0.0 localhost:8082/frontend-test:1.0.0"
                 sh "docker image push localhost:8082/frontend-test:1.0.0"
