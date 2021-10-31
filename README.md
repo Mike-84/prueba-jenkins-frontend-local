@@ -1,14 +1,14 @@
-# pruebas jenkins local
+# Notas
 
-password para registro: 947e415a87224ec28c6b80439e669c8a
+password para registro: 947e415a87224ec28c6b80439e669c8a (luego se cambia)
 
 
-para instalar npm
+instalar npm
 
 wget
 
 (Instalar google por dockerfile)
-# Check available versions here: https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable
+- Check available versions here: https://www.ubuntuupdates.org/package/google_chrome/stable/main/base/google-chrome-stable
 ARG CHROME_VERSION="95.0.4638.54-1"
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
   && apt install -y /tmp/chrome.deb \
